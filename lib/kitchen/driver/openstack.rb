@@ -260,7 +260,7 @@ module Kitchen
       def get_public_private_ips(server)
         begin
           pub, priv = server.public_ip_addresses, server.private_ip_addresses
-        rescue Fog::Compute::OpenStack::NotFound, Excon::Errors::Forbidden
+        rescue Fog::Compute::OpenStack::NotFound, Excon::Errors::Forbidden, Excon::Errors::InternalServerError
           # See Fog issue: https://github.com/fog/fog/issues/2160
           addrs = server.addresses
           addrs['public'] && pub = addrs['public'].map { |i| i['addr'] }
